@@ -65,6 +65,9 @@ compilation database is present in the project.")
   (add-hook! (c-mode c++-mode) #'highlight-numbers-mode)
   (add-hook! (c-mode c++-mode) #'+cc|fontify-constants)
 
+  (when (featurep! :feature syntax-checker)
+    (add-hook! (c-mode c++-mode) #'flycheck-mode))
+
   ;; Custom style, based off of linux
   (map-put c-style-alist "doom"
            `((c-basic-offset . ,tab-width)
@@ -121,14 +124,6 @@ compilation database is present in the project.")
 
 (def-package! modern-cpp-font-lock
   :hook (c++-mode . modern-c++-font-lock-mode))
-
-(def-package! flycheck-irony
-  :when (featurep! :feature syntax-checker)
-  :after irony
-  :config
-  (add-hook 'irony-mode-hook #'flycheck-mode)
-  (flycheck-irony-setup))
-
 
 ;;
 ;; Tools

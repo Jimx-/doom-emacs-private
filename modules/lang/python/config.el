@@ -39,11 +39,11 @@ is loaded.")
           "C-j" #'evil-window-down
           "C-k" #'evil-window-up
           "C-l" #'evil-window-right))
-  (when (executable-find "ipython")
+  (when (executable-find "iipython")
     (setq python-shell-interpreter "ipython"
           python-shell-interpreter-args "-i --simple-prompt --no-color-info"
           python-shell-prompt-detect-enabled nil
-          python-shell-completion-native-disabled-interpreters '("jupyter")
+          python-shell-completion-native-disabled-interpreters '("jupyter" "ipython")
           python-shell-interpreter-args "--pylab"
           python-shell-prompt-regexp "In \\[[0-9]+\\]: "
           python-shell-prompt-block-regexp "\\.\\.\\.\\.: "
@@ -79,7 +79,8 @@ is loaded.")
 (def-package! lsp-python
   :commands (lsp-python-enable)
   :config
-  (setq python-indent-guess-indent-offset-verbose nil)
+  (setq
+   python-indent-guess-indent-offset-verbose nil)
   (set! :company-backend '(python-mode) '(company-lsp company-files company-yasnippet))
   (set! :lookup 'python-mode
     :definition #'lsp-ui-peek-find-definitions
@@ -169,3 +170,11 @@ is loaded.")
         :n "O" #'nosetests-pdb-one
         :n "V" #'nosetests-pdb-module))
 
+(def-package! lpy
+  :after python
+  :load-path "~/sources/lpy"
+  :hook ((python-mode . lpy-mode))
+  :config
+  (map! :map lpy-mode-map
+        :i "C-p" #'previous-line
+        :i "C-n" #'next-line))

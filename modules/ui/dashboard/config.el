@@ -279,7 +279,20 @@ controlled by `+doom-dashboard-pwd-policy'."
           "      .   |  |__   |  \\  /  |    /  ^  \\   |  ,----'  |   (----`          "
           "   .      |   __|  |  |\\/|  |   /  /_\\  \\  |  |        \\   \\     .        "
           "          |  |____ |  |  |  |  /  _____  \\ |  `----.----)   |             "
-          "       .  |_______||__|  |__| /__/     \\__\\ \\______|_______/    .     .   ")))
+          "       .  |_______||__|  |__| /__/     \\__\\ \\______|_______/    .     .   "))
+
+  ;; (if (executable-find "fortune")
+;;       (let (line))
+;; ((format
+;;         "%s\n\n%s"
+;;         (replace-regexp-in-string
+;;          "\n" "\n;; "                    ; comment each line
+;;          (replace-regexp-in-string
+;;           "\n$" ""                      ; remove trailing linebreak
+;;           (shell-command-to-string
+;;            "fortune -a | fmt -80 -s")))
+;;         (concat "Happy hacking, " user-login-name " - Emacs ♥ you!\n"))))
+  )
 
 (defun doom-dashboard-widget-loaded ()
   (insert
