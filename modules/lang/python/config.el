@@ -23,7 +23,7 @@ is loaded.")
         python-shell-interpreter "python3")
   :config
   (add-hook! 'python-mode-hook #'(flycheck-mode highlight-numbers-mode))
-  (add-hook! 'python-mode-hook #'lsp-python-enable)
+  ;; (add-hook! 'python-mode-hook #'lsp-python-enable)
   (set! :repl 'python-mode #'+python/repl)
   (set! :electric 'python-mode :chars '(?:))
   (set! :popup "^\\*Python" '((side . right) (size . 80)) '((select) (quit) (transient)))
@@ -39,6 +39,16 @@ is loaded.")
           "C-j" #'evil-window-down
           "C-k" #'evil-window-up
           "C-l" #'evil-window-right))
+
+  (defun +python|add-version-to-modeline ()
+    "Add version string to the major mode in the modeline."
+    (setq mode-name
+          (if +python-current-version
+              (format "Python %s" +python-current-version)
+            "Python")))
+
+  (add-hook 'python-mode-hook #'+python|add-version-to-modeline)
+
   (when (executable-find "iipython")
     (setq python-shell-interpreter "ipython"
           python-shell-interpreter-args "-i --simple-prompt --no-color-info"
@@ -54,37 +64,27 @@ is loaded.")
           ;; "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"
           ))
 
-(def-package! conda
-  :commands (conda-env-activate-for-buffer)
-  :config
-  (setq conda-anaconda-home "/usr/local/anaconda3")
-  (conda-env-autoactivate-mode -1)
-  ;; (add-hook 'python-mode-hook #'conda-env-activate-for-buffer)
-  (conda-env-initialize-interactive-shells)
-  (conda-env-initialize-eshell)
+  (def-package! conda
+    :commands (conda-env-activate-for-buffer)
+    :config
+    (setq conda-anaconda-home "/usr/local/anaconda3")
+    (conda-env-autoactivate-mode -1)
+    ;; (add-hook 'python-mode-hook #'conda-env-activate-for-buffer)
+    (conda-env-initialize-interactive-shells)
+    (conda-env-initialize-eshell)
     ;; Version management with pyenv
-  (defun +python|add-version-to-modeline ()
-    "Add version string to the major mode in the modeline."
-    (setq mode-name
-          (if conda-env-current-name
-              (format "Py:conda:%s" conda-env-current-name)
-            "Python")))
-  (add-hook 'conda-postactivate-hook #'+python|add-version-to-modeline)
-  (add-hook 'conda-postdeactivate-hook #'+python|add-version-to-modeline))
+    (defun +python|add-version-to-modeline ()
+      "Add version string to the major mode in the modeline."
+      (setq mode-name
+            (if conda-env-current-name
+                (format "Py:conda:%s" conda-env-current-name)
+              "Python")))
+    (add-hook 'conda-postactivate-hook #'+python|add-version-to-modeline)
+    (add-hook 'conda-postdeactivate-hook #'+python|add-version-to-modeline))
 
   (define-key python-mode-map (kbd "DEL") nil) ; interferes with smartparens
   (sp-with-modes 'python-mode
     (sp-local-pair "'" nil :unless '(sp-point-before-word-p sp-point-after-word-p sp-point-before-same-p))))
-
-(def-package! lsp-python
-  :commands (lsp-python-enable)
-  :config
-  (setq
-   python-indent-guess-indent-offset-verbose nil)
-  (set! :company-backend '(python-mode) '(company-lsp company-files company-yasnippet))
-  (set! :lookup 'python-mode
-    :definition #'lsp-ui-peek-find-definitions
-    :references #'lsp-ui-peek-find-references))
 
 (def-package! anaconda-mode
   :after python
@@ -170,11 +170,11 @@ is loaded.")
         :n "O" #'nosetests-pdb-one
         :n "V" #'nosetests-pdb-module))
 
-(def-package! lpy
-  :after python
-  :load-path "~/sources/lpy"
-  :hook ((python-mode . lpy-mode))
-  :config
-  (map! :map lpy-mode-map
-        :i "C-p" #'previous-line
-        :i "C-n" #'next-line))
+;; (def-package! lpy
+;;   :after python
+;;   :load-path "~/sources/lpy"
+;;   :hook ((python-mode . lpy-mode))
+;;   :config
+;;   (map! :map lpy-mode-map
+;;         :i "C-p" #'previous-line
+;;         :i "C-n" #'next-line))

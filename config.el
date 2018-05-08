@@ -11,23 +11,6 @@
 (global-set-key (kbd "C-x C-g") 'recentf-open-files)
 (global-set-key (kbd "C-'") 'evil-avy-goto-char-2)
 
-;;; LSP mode
-(def-package! lsp-mode
-  :commands (lsp-mode))
-(def-package! lsp-ui
-  :hook (lsp-mode . lsp-ui-mode)
-  :init
-  :config
-  (setq lsp-ui-doc-enable nil
-        lsp-enable-completion-at-point t
-        lsp-ui-doc-position 'top
-        lsp-ui-doc-header nil
-        lsp-ui-doc-include-signature t
-        lsp-ui-doc-background (doom-color 'base4)
-        lsp-ui-doc-border (doom-color 'fg)))
-(def-package! company-lsp
-  :after lsp-mode)
-
 ;;; company
 (after! company
   (def-package! lispy
@@ -50,9 +33,11 @@
         company-tooltip-align-annotations t
         company-require-match 'never
         company-frontends '(company-pseudo-tooltip-frontend)
+        company-backends
+        '(company-capf company-dabbrev company-files company-yasnippet)
         company-global-modes '(not comint-mode erc-mode message-mode help-mode gud-mode)
         company-childframe-child-frame nil))
-(push 'company-lsp company-backends)
+;; (push 'company-lsp company-backends)
 
 ;; Lispy mode
 (def-package! zoutline)
@@ -68,4 +53,5 @@
      (slurp/barf-lispy))))
 
 ;;Debugging
-;; (def-package! realgud)
+(def-package! realgud
+  :commands (realgud:gdb realgud:pdb))

@@ -1,11 +1,11 @@
 (doom! :feature
        (popup
         +defaults)
-       eval                   ; run code, run (also, repls)
-       evil                   ; come to the dark side, we have cookies
-       file-templates         ; auto-snippets for empty files
+       eval                             ; run code, run (also, repls)
+       evil                             ; come to the dark side, we have cookies
+       file-templates                   ; auto-snippets for empty files
        lookup
-       jump                             ; helping you get around
+       jump                   ; helping you get around
        services               ; TODO managing external services & code builders
        snippets               ; my elves. They type so I don't have to
        spellcheck             ; tasing you for misspelling mispelling
@@ -14,15 +14,18 @@
        workspaces             ; tab emulation, persistence & separate workspaces
 
        :completion
-       (company +auto)                  ; the ultimate code completion backend
+       (company
+        +auto
+        ;; +childframe
+        )                  ; the ultimate code completion backend
        ivy                              ; a search engine for love and life
                                         ;helm              ; the *other* search engine for love and life
                                         ;ido               ; the other *other* search engine...
 
        :ui
-       doom                          ; what makes DOOM look the way it does
-       dashboard                     ; a nifty splash screen for Emacs
-       modeline                      ; a snazzy Atom-inspired mode-line
+       doom                             ; what makes DOOM look the way it does
+       dashboard                        ; a nifty splash screen for Emacs
+       modeline
        hl-todo                       ; highlight TODO/FIXME/NOTE tags
        nav-flash                     ; blink the current line after jumping
        evil-goggles                  ; display visual hints when editing in evil
@@ -49,12 +52,13 @@
        upload                    ; map local to remote projects via ssh/ftp
 
        :lang
+       lsp
        cc
        data                             ; config/data formats
        emacs-lisp                       ; drown in parentheses
        haskell
        idris
-       matlab
+       ocaml
        (org                          ; organize your plain life in plain text
         +attach                      ; custom attachment system
         +babel                       ; running code in org
@@ -118,7 +122,7 @@
     (mu4e-drafts-folder . "/outlook/Drafts")
     (mu4e-trash-folder . "/outlook/Deleted")
     (mu4e-refile-folder . "/outlook/Archive")
-    (mu4e-compose-signature . "Jin Xue\nSouth China University of Technology")
+    (mu4e-compose-signature . "Jin Xue")
     (smtpmail-smtp-server . "smtp.office365.com")
     (smtpmail-smtp-service . 587)
     (smtpmail-smtp-user "csjinxue@outlook.com"))

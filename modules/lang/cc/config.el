@@ -175,7 +175,7 @@ compilation database is present in the project.")
   :commands lsp-cquery-enable
   :init (add-hook 'c-mode-common-hook #'+cquery/enable)
   :config
-  (setq cquery-executable "~/.local/stow/cquery/bin/cquery")
+  (setq cquery-executable "/usr/bin/cquery")
   (set! :company-backend
         '(c-mode c++-mode objc-mode)
         '(company-lsp company-yasnippet)))

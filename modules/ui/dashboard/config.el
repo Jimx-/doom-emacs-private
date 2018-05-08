@@ -262,36 +262,37 @@ controlled by `+doom-dashboard-pwd-policy'."
           (insert "\n"))
 
         '(".        .          .    .    .            .            .        .         "
-          "               .               ..       .       .   .        .            "
-          " .      .     A long time ago in a galaxy far, far away...       .  "
-          "                     .              .       .                    .        "
-          ".        .               .       .     .            ."
-          "   .           .        .                     .        .            ."
-          "      .      .               .    .          .              .   .         ."
-          "                 __   __  .___  ___. ___   ___  __     _______.          "
-          "  .        .    |  | |  | |   \\/   | \\  \\ /  / (_ )   /       |  .       "
-          "    .           |  | |  | |  \\  /  |  \\  V  /   |/   |   (----`      .   "
-          "          .--.  |  | |  | |  |\\/|  |   >   <          \\   \\  . .         "
-          "  .       |  `--'  | |  | |  |  |  |  /  .  \\     .----)   |             "
-          "       .   \\______/  |__| |__|  |__| /__/ \\__\\    |_______/       .      "
-          "           _______ .___  ___.      ___       ______     _______.          "
-          "    .     |   ____||   \\/   |     /   \\     /      |   /       |   .  .   "
-          "      .   |  |__   |  \\  /  |    /  ^  \\   |  ,----'  |   (----`          "
-          "   .      |   __|  |  |\\/|  |   /  /_\\  \\  |  |        \\   \\     .        "
-          "          |  |____ |  |  |  |  /  _____  \\ |  `----.----)   |             "
-          "       .  |_______||__|  |__| /__/     \\__\\ \\______|_______/    .     .   "))
+         "               .               ..       .       .   .        .            "
+         " .      .     A long time ago in a galaxy far, far away...       .  "
+         "                     .              .       .                    .        "
+         ".        .               .       .     .            ."
+         "   .           .        .                     .        .            ."
+         "      .      .               .    .          .              .   .         ."
+         "                 __   __  .___  ___. ___   ___  __     _______.          "
+         "  .        .    |  | |  | |   \\/   | \\  \\ /  / (_ )   /       |  .       "
+         "    .           |  | |  | |  \\  /  |  \\  V  /   |/   |   (----`      .   "
+         "          .--.  |  | |  | |  |\\/|  |   >   <          \\   \\  . .         "
+         "  .       |  `--'  | |  | |  |  |  |  /  .  \\     .----)   |             "
+         "       .   \\______/  |__| |__|  |__| /__/ \\__\\    |_______/       .      "
+         "           _______ .___  ___.      ___       ______     _______.          "
+         "    .     |   ____||   \\/   |     /   \\     /      |   /       |   .  .   "
+         "      .   |  |__   |  \\  /  |    /  ^  \\   |  ,----'  |   (----`          "
+         "   .      |   __|  |  |\\/|  |   /  /_\\  \\  |  |        \\   \\     .        "
+         "          |  |____ |  |  |  |  /  _____  \\ |  `----.----)   |             "
+         "       .  |_______||__|  |__| /__/     \\__\\ \\______|_______/    .     .   "))
 
-  ;; (if (executable-find "fortune")
-;;       (let (line))
-;; ((format
-;;         "%s\n\n%s"
-;;         (replace-regexp-in-string
-;;          "\n" "\n;; "                    ; comment each line
-;;          (replace-regexp-in-string
-;;           "\n$" ""                      ; remove trailing linebreak
-;;           (shell-command-to-string
-;;            "fortune -a | fmt -80 -s")))
-;;         (concat "Happy hacking, " user-login-name " - Emacs ♥ you!\n"))))
+
+  ;;   (if (executable-find "fortune")
+  ;;       (let (line))
+  ;; ((format
+  ;;         "%s\n\n%s"
+  ;;         (replace-regexp-in-string
+  ;;          "\n" "\n;; "                    ; comment each line
+  ;;          (replace-regexp-in-string
+  ;;           "\n$" ""                      ; remove trailing linebreak
+  ;;           (shell-command-to-string
+  ;;            "fortune -a | fmt -80 -s")))
+  ;;         (concat "Happy hacking, " user-login-name " - Emacs ♥ you!\n"))))
   )
 
 (defun doom-dashboard-widget-loaded ()
