@@ -4,4 +4,4 @@
   :mode "\\.idr$"
   :interpreter (("idris" . idris-mode))
   :config
-  (setq idris-interpreter-path "~/.cabal/bin/idris"))
+  (setq idris-interpreter-path "/usr/bin/idris"))

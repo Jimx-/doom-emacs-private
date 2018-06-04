@@ -177,5 +177,8 @@ compilation database is present in the project.")
   :config
   (setq cquery-executable "/usr/bin/cquery")
   (set! :company-backend
-        '(c-mode c++-mode objc-mode)
-        '(company-lsp company-yasnippet)))
+    '(c-mode c++-mode objc-mode)
+    '(company-lsp company-yasnippet))
+  (set! :lookup '(c-mode c++-mode objc-mode)
+    :definition #'lsp-ui-peek-find-definitions
+    :references #'lsp-ui-peek-find-references))

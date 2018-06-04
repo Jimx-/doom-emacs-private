@@ -5,3 +5,4 @@
 (package! lsp-mode)
 (package! company-lsp)
 (package! lsp-python)
+(package! lsp-haskell)

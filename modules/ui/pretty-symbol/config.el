@@ -13,34 +13,34 @@
   (pretty-activate-groups
    '(:sub-and-superscripts :greek :arithmetic-nary))
 
-  (add-hook
-   'python-mode-hook
-   (lambda ()
-     (setq prettify-symbols-alist
-           '(;; Syntax
-             ("def" . 402)
-             ("not" . 10071)
-             ("in" . 8712)
-             ("not in" . 8713)
-             ("return" . 10236)
-             ("yield" . 10235)
-             ("for" . 8704)
-             ;; Base Types
-             ("int" . 8484)
-             ("float" . 8477)
-             ("str" . 120138)
-             ("True" . 120139)
-             ("False" . 120125)
-             ;; Mypy
-             ("Dict" . 120071)
-             ("List" . 8466)
-             ("Tuple" . 10754)
-             ("Set" . 8486)
-             ("Iterable" . 120074)
-             ("Any" . 10068)
-             ("Union" . 8899)))))
+  (add-hook!
+    'python-mode-hook
+    (setq prettify-symbols-alist
+          '(;; Syntax
+            ("def" . 402)
+            ("not" . 10071)
+            ("in" . 8712)
+            ("not in" . 8713)
+            ("return" . 10236)
+            ("yield" . 10235)
+            ("for" . 8704)
+            ;; Base Types
+            ("int" . 8484)
+            ("float" . 8477)
+            ("str" . 120138)
+            ("True" . 120139)
+            ("False" . 120125)
+            ;; Mypy
+            ("Dict" . 120071)
+            ("List" . 8466)
+            ("Tuple" . 10754)
+            ("Set" . 8486)
+            ("Iterable" . 120074)
+            ("Any" . 10068)
+            ("Union" . 8899))))
 
   (add-hook 'after-make-frame-functions (lambda (frame) (set-fontset-font t '(57600 . 57711) "Fira Code Symbol")))
+  (set-fontset-font t '(#x27c0 . #x27ff) "Symbola")
   (set-fontset-font t '(57600 . 57711) "Fira Code Symbol")
 
   (defconst fira-code-font-lock-keywords-alist
