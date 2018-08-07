@@ -52,7 +52,7 @@ compilation database is present in the project.")
                 c-default-style "doom")
 
   :config
-  (set! :electric '(c-mode c++-mode objc-mode java-mode)
+  (set-electric! '(c-mode c++-mode objc-mode java-mode)
         :chars '(?\n ?\}))
 
   ;;; Style/formatting
@@ -140,7 +140,7 @@ compilation database is present in the project.")
   :mode "/CMakeLists\\.txt$"
   :mode "\\.cmake\\$"
   :config
-  (set! :company-backend 'cmake-mode '(company-cmake company-yasnippet)))
+  (set-company-backend! 'cmake-mode '(company-cmake company-yasnippet)))
 
 (def-package! cuda-mode :mode "\\.cuh?$")
 
@@ -164,7 +164,7 @@ compilation database is present in the project.")
   :when (featurep! :completion company)
   :after glsl-mode
   :config
-  (set! :company-backend 'glsl-mode '(company-glsl)))
+  (set-company-backend! 'glsl-mode '(company-glsl)))
 
 ;;
 ;; LSP plugins
@@ -176,9 +176,9 @@ compilation database is present in the project.")
   :init (add-hook 'c-mode-common-hook #'+cquery/enable)
   :config
   (setq cquery-executable "/usr/bin/cquery")
-  (set! :company-backend
+  (set-company-backend!
     '(c-mode c++-mode objc-mode)
     '(company-lsp company-yasnippet))
-  (set! :lookup '(c-mode c++-mode objc-mode)
+  (set-lookup-handlers! '(c-mode c++-mode objc-mode)
     :definition #'lsp-ui-peek-find-definitions
     :references #'lsp-ui-peek-find-references))

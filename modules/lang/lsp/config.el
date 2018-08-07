@@ -24,12 +24,11 @@
   :after python
   :init
   (add-hook 'python-mode-hook #'lsp-python-enable)
-  (add-hook! 'python-mode-hook (push 'company-lsp company-backends))
   :config
   (setq
    python-indent-guess-indent-offset-verbose nil)
-  (set! :company-backend '(python-mode) '(company-lsp company-files company-yasnippet))
-  (set! :lookup 'python-mode
+  (set-company-backend! '(python-mode) '(company-lsp company-files company-yasnippet))
+  (set-lookup-handlers! 'python-mode
     :definition #'lsp-ui-peek-find-definitions
     :references #'lsp-ui-peek-find-references))
 
@@ -40,4 +39,4 @@
   (add-hook 'haskell-mode-hook #'lsp-haskell-enable)
   (add-hook! 'haskell-mode-hook (push 'company-lsp company-backends))
   :config
-  (set! :company-backend 'haskell-mode '(company-lsp company-files company-yasnippet)))
+  (set-company-backend! 'haskell-mode '(company-lsp company-files company-yasnippet)))

@@ -24,10 +24,10 @@ is loaded.")
   :config
   (add-hook! 'python-mode-hook #'(flycheck-mode highlight-numbers-mode))
 
-  (set! :env "PYTHONPATH" "PYENV_ROOT")
+  (set-env! "PYTHONPATH" "PYENV_ROOT")
   ;; (set! :company-backend 'python-mode '(company-anaconda))
-  (set! :electric 'python-mode :chars '(?:))
-  (set! :repl 'python-mode #'+python/repl)
+  (set-electric! 'python-mode :chars '(?:))
+  (set-repl-handler! 'python-mode #'+python/repl)
 
   (when (executable-find "ipython")
     (setq python-shell-interpreter "ipython"
@@ -80,8 +80,8 @@ environment variables."
         anaconda-mode-eldoc-as-single-line t)
   :config
   (add-hook 'anaconda-mode-hook #'anaconda-eldoc-mode)
-  (set! :popup "^\\*anaconda-mode" nil '((select)))
-  (set! :lookup 'python-mode
+  ;; (set-popup-rule! "^\\*anaconda-mode" nil '((select)))
+  (set-lookup-handlers! 'python-mode
     :definition #'anaconda-mode-find-definitions
     :references #'anaconda-mode-find-references
     :documentation #'anaconda-mode-show-doc)
@@ -111,26 +111,26 @@ environment variables."
         :nv "u" #'anaconda-mode-find-references))
 
 
-;; (def-package! nose
-;;   :commands nose-mode
-;;   :preface
-;;   (defvar nose-mode-map (make-sparse-keymap))
-;;   :init
-;;   (associate! nose-mode :match "/test_.+\\.py$" :modes (python-mode))
-;;   :config
+(def-package! nose
+  :commands nose-mode
+  :preface
+  (defvar nose-mode-map (make-sparse-keymap))
+  :init
+  (associate! nose-mode :match "/test_.+\\.py$" :modes (python-mode))
+  :config
 
-;;   (set! :popup "^\\*nosetests" '((size . 0.4)) '((select)))
-;;   (set! :yas-minor-mode 'nose-mode)
-;;   (map! :map nose-mode-map
-;;         :localleader
-;;         :prefix "t"
-;;         :n "r" #'nosetests-again
-;;         :n "a" #'nosetests-all
-;;         :n "s" #'nosetests-one
-;;         :n "v" #'nosetests-module
-;;         :n "A" #'nosetests-pdb-all
-;;         :n "O" #'nosetests-pdb-one
-;; :n "V" #'nosetests-pdb-module))
+  (set-popup-rule! "^\\*nosetests" '((size . 0.4)) '((select)))
+  (set-yas-minor-mode! 'nose-mode)
+  (map! :map nose-mode-map
+        :localleader
+        :prefix "t"
+        :n "r" #'nosetests-again
+        :n "a" #'nosetests-all
+        :n "s" #'nosetests-one
+        :n "v" #'nosetests-module
+        :n "A" #'nosetests-pdb-all
+        :n "O" #'nosetests-pdb-one
+        :n "V" #'nosetests-pdb-module))
 
 
 (def-package! py-isort
