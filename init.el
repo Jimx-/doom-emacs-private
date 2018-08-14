@@ -29,7 +29,8 @@
        vi-tilde-fringe
        (window-select +switch-window)
        treemacs
-       pretty-symbol
+       ;; pretty-symbol
+       pretty-code
 
        :editor
        rotate-text
@@ -94,9 +95,7 @@
  evil-shift-width 4
  evil-snipe-override-evil-repeat-keys nil
  evil-collection-company-use-tng nil
- evil-respect-visual-line-mode t
- c-basic-offset 4
- c-default-style "stroustrup")
+ evil-respect-visual-line-mode t)
 
 (defun *doom-dashboard-widget-banner ()
   (mapc (lambda (line)
@@ -128,6 +127,7 @@
  +file-templates-dir "~/.doom.d/templates")
 
 (setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-                         ("melpa" . "http://elpa.emacs-china.org/melpa/")))
+                         ("melpa" . "http://elpa.emacs-china.org/melpa/")
+                         ("org"   . "http://elpa.emacs-china.org/org/")))
 
 ;;(set-popup-rules! "^\\*\\(?:scratch\\|Warnings\\)" nil '((transient)))

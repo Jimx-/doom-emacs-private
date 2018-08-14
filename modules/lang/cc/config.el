@@ -43,62 +43,46 @@ compilation database is present in the project.")
          (equal (file-name-extension buffer-file-name) "h")
          (re-search-forward "@\\<interface\\>" magic-mode-regexp-match-limit t)))
 
-  (push '(+cc-c++-header-file-p  . c++-mode)  magic-mode-alist)
+  (push '(+cc-c++-header-file-p . c++-mode) magic-mode-alist)
   (push '(+cc-objc-header-file-p . objc-mode) magic-mode-alist)
 
   :init
   (setq-default c-basic-offset tab-width
                 c-backspace-function #'delete-backward-char
-                c-default-style "doom")
+                c-default-style "stroustrup")
 
   :config
   (set-electric! '(c-mode c++-mode objc-mode java-mode)
-        :chars '(?\n ?\}))
+    :chars '(?\n ?\}))
 
-  ;;; Style/formatting
+  ;; Style/formatting
   ;; C/C++ style settings
   (c-toggle-electric-state -1)
   (c-toggle-auto-newline -1)
+  (c-set-offset 'substatement-open '0)  ; don't indent brackets
+  (c-set-offset 'inline-open '+)
+  (c-set-offset 'block-open '+)
+  (c-set-offset 'func-decl-cont '0)
+  (c-set-offset 'member-init-cont '-)
+  (c-set-offset 'brace-list-open '+)
+  (c-set-offset 'case-label '0)
+  (c-set-offset 'access-label '-)
+  (c-set-offset 'arglist-intro '+)
+  (c-set-offset 'arglist-close '0)
+  (c-set-offset 'innamespace '-)
 
-  ;;; Better fontification (also see `modern-cpp-font-lock')
+  ;; Better fontification (also see `modern-cpp-font-lock')
   (add-hook 'c-mode-common-hook #'rainbow-delimiters-mode)
   (add-hook! (c-mode c++-mode) #'highlight-numbers-mode)
   (add-hook! (c-mode c++-mode) #'+cc|fontify-constants)
 
+  (advice-add #'c-lineup-arglist :around #'+cc*align-lambda-arglist)
+
   (when (featurep! :feature syntax-checker)
     (add-hook! (c-mode c++-mode) #'flycheck-mode))
 
-  ;; Custom style, based off of linux
-  (map-put c-style-alist "doom"
-           `((c-basic-offset . ,tab-width)
-             (c-comment-only-line-offset . 0)
-             (c-hanging-braces-alist (brace-list-open)
-                                     (brace-entry-open)
-                                     (substatement-open after)
-                                     (block-close . c-snug-do-while)
-                                     (arglist-cont-nonempty))
-             (c-cleanup-list brace-else-brace)
-             (c-offsets-alist
-              (statement-block-intro . +)
-              (knr-argdecl-intro . 0)
-              (substatement-open . 0)
-              (substatement-label . 0)
-              (statement-cont . +)
-              (case-label . +)
-              ;; align args with open brace OR don't indent at all (if open brace
-              ;; is at eolp and close brace is after arg with no trailing comma)
-              (arglist-intro . +)
-              (arglist-close +cc-lineup-arglist-close 0)
-              ;; don't over-indent lambda blocks
-              (inline-open . 0)
-              (inlambda . 0)
-              ;; indent access keywords +1 level, and properties beneath them
-              ;; another level
-              (access-label . -)
-              (inclass +cc-c++-lineup-inclass +)
-              (label . 0))))
 
-  ;;; Keybindings
+  ;; Keybindings
   ;; Completely disable electric keys because it interferes with smartparens and
   ;; custom bindings. We'll do this ourselves.
   (setq c-tab-always-indent nil
@@ -166,19 +150,3 @@ compilation database is present in the project.")
   :config
   (set-company-backend! 'glsl-mode '(company-glsl)))
 
-;;
-;; LSP plugins
-;;
-(def-package! cquery
-  :load-path "~/sources/cquery/emacs"
-  :after cc-mode
-  :commands lsp-cquery-enable
-  :init (add-hook 'c-mode-common-hook #'+cquery/enable)
-  :config
-  (setq cquery-executable "/usr/bin/cquery")
-  (set-company-backend!
-    '(c-mode c++-mode objc-mode)
-    '(company-lsp company-yasnippet))
-  (set-lookup-handlers! '(c-mode c++-mode objc-mode)
-    :definition #'lsp-ui-peek-find-definitions
-    :references #'lsp-ui-peek-find-references))

@@ -27,7 +27,7 @@
   :config
   (setq
    python-indent-guess-indent-offset-verbose nil)
-  (set-company-backend! '(python-mode) '(company-lsp company-files company-yasnippet))
+  (set-company-backend! 'python-mode '(company-lsp company-files company-yasnippet))
   (set-lookup-handlers! 'python-mode
     :definition #'lsp-ui-peek-find-definitions
     :references #'lsp-ui-peek-find-references))
@@ -40,3 +40,17 @@
   (add-hook! 'haskell-mode-hook (push 'company-lsp company-backends))
   :config
   (set-company-backend! 'haskell-mode '(company-lsp company-files company-yasnippet)))
+
+(def-package! cquery
+  ;; :load-path "~/sources/cquery/emacs"
+  :after cc-mode
+  :commands lsp-cquery-enable
+  :init (add-hook 'c-mode-common-hook #'+cquery/enable)
+  :config
+  (setq cquery-executable "/usr/bin/cquery")
+  (set-company-backend!
+    '(c-mode c++-mode objc-mode)
+    '(company-lsp company-yasnippet))
+  (set-lookup-handlers! '(c-mode c++-mode objc-mode)
+    :definition #'lsp-ui-peek-find-definitions
+    :references #'lsp-ui-peek-find-references))

@@ -1,29 +1,17 @@
 ;;;  -*- lexical-binding: t; -*-
 
-;;; Key bindings
-(defhydra hydra-scan-user-buffers (:hint nil)
-  "scan user buffers"
-  ("]" next-buffer)
-  ("[" previous-buffer)
-  ("k" kill-this-buffer)
-  ("q" nil))
-(global-set-key (kbd "C-x C-j") 'hydra-scan-user-buffers/body)
-
-(global-set-key (kbd "C-x C-g") 'recentf-open-files)
-(global-set-key (kbd "C-'") 'evil-avy-goto-char-2)
-
 (set-email-account!
-  "outlook"
-  '((user-mail-address . "csjinxue@outlook.com")
-    (mu4e-sent-folder . "/outlook/Sent")
-    (mu4e-drafts-folder . "/outlook/Drafts")
-    (mu4e-trash-folder . "/outlook/Deleted")
-    (mu4e-refile-folder . "/outlook/Archive")
-    (mu4e-compose-signature . "Jin Xue")
-    (smtpmail-smtp-server . "smtp.office365.com")
-    (smtpmail-smtp-service . 587)
-    (smtpmail-smtp-user "csjinxue@outlook.com"))
-  t)
+ "outlook"
+ '((user-mail-address . "csjinxue@outlook.com")
+   (mu4e-sent-folder . "/outlook/Sent")
+   (mu4e-drafts-folder . "/outlook/Drafts")
+   (mu4e-trash-folder . "/outlook/Deleted")
+   (mu4e-refile-folder . "/outlook/Archive")
+   (mu4e-compose-signature . "Jin Xue")
+   (smtpmail-smtp-server . "smtp.office365.com")
+   (smtpmail-smtp-service . 587)
+   (smtpmail-smtp-user "csjinxue@outlook.com"))
+ t)
 
 ;;; company
 (after! company
@@ -65,6 +53,9 @@
      escape
      (slurp/barf-lispy))))
 
-;;Debugging
+;; Debugging
 (def-package! realgud
   :commands (realgud:gdb realgud:pdb))
+
+;; Loading
+(load! "+bindings")

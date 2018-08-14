@@ -6,3 +6,4 @@
 (package! company-lsp)
 (package! lsp-python)
 (package! lsp-haskell)
+(package! cquery)

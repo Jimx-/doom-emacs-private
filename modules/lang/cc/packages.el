@@ -9,7 +9,6 @@
 (package! modern-cpp-font-lock)
 (package! opencl-mode)
 
-(package! cquery)
 
 (when (featurep! :feature syntax-checker)
   (package! flycheck-irony))
