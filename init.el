@@ -13,7 +13,8 @@
        :completion
        (company
         +auto)
-       (helm
+       (ivy
+        +childframe
         +fuzzy)
 
        :ui
@@ -27,28 +28,32 @@
        nav-flash
        evil-goggles
        vi-tilde-fringe
+       vc-gutter
        (window-select +switch-window)
        treemacs
        ;; pretty-symbol
-       pretty-code
+       (pretty-code
+        +fira)
 
        :editor
+       multiple-cursors
        rotate-text
 
        :emacs
        dired
        ediff
        electric
-       eshell
+       hideshow
        imenu
        vc
 
        :tools
-       gist
-       make
+       editorconfig
+       ;; gist
+       ;; make
        password-store
-       tmux
-       upload
+       ;; tmux
+       ;; upload
 
        :lang
        lsp
@@ -64,9 +69,12 @@
         +babel
         +capture
         +export
-        ;; +present
-        +publish)
-       python
+        +ipython
+        +present)
+       (org-private
+        +capture)
+       (python
+        +ipython)
        racket
        web
 
@@ -130,4 +138,6 @@
                          ("melpa" . "http://elpa.emacs-china.org/melpa/")
                          ("org"   . "http://elpa.emacs-china.org/org/")))
 
-;;(set-popup-rules! "^\\*\\(?:scratch\\|Warnings\\)" nil '((transient)))
+(def-package-hook! ivy-rich
+  :pre-init nil
+  :pre-config nil)

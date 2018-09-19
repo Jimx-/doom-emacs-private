@@ -194,3 +194,21 @@
   (add-to-list '+python-mode-line-indicator
                '(conda-env-current-name (" conda:" conda-env-current-name))
                'append))
+
+
+(def-package! py-isort
+  :after python
+  :config
+  (map! :map python-mode-map
+        :localleader
+        :n "s" #'py-isort-buffer
+        :v "s" #'py-isort-region))
+
+
+(def-package! yapfify
+  :after python
+  :hook (python-mode . yapf-mode)
+  :config
+  (map! :map python-mode-map
+        :localleader
+        :nv "=" #'yapfify-buffer))

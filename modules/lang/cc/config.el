@@ -69,7 +69,7 @@ compilation database is present in the project.")
   (c-set-offset 'access-label '-)
   (c-set-offset 'arglist-intro '+)
   (c-set-offset 'arglist-close '0)
-  (c-set-offset 'innamespace '-)
+  (c-set-offset 'innamespace '0)
 
   ;; Better fontification (also see `modern-cpp-font-lock')
   (add-hook 'c-mode-common-hook #'rainbow-delimiters-mode)
@@ -150,3 +150,4 @@ compilation database is present in the project.")
   :config
   (set-company-backend! 'glsl-mode '(company-glsl)))
 
+(def-package! clang-format)

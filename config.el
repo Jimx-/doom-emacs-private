@@ -15,15 +15,6 @@
 
 ;;; company
 (after! company
-  (def-package! lispy
-  :hook (emacs-lisp-mode . lispy-mode)
-  :config
-  (map! :map lispy-mode-map
-        :i "_" #'special-lispy-different
-        :i "C-d" #'lispy-delete
-        :i "C-u" #'universal-argument
-        :i [remap delete-backward-char] #'lispy-delete-backward))
-
   (setq company-tooltip-limit 10
         company-minimum-prefix-length 2
         company-tooltip-minimum-width 60
@@ -40,18 +31,15 @@
         company-global-modes '(not comint-mode erc-mode message-mode help-mode gud-mode)
         company-childframe-child-frame nil))
 
-;; Lispy mode
-(def-package! zoutline)
-(def-package! lispyville
-  :after (evil)
-  :hook (lispy-mode . lispyville-mode)
-  :config
-  (lispyville-set-key-theme
-   '(operators
-     c-w
-     prettify
-     escape
-     (slurp/barf-lispy))))
+;; Ivy
+(after! ivy
+  (ivy-rich-mode 1))
+
+;; Org
+(after! org
+  (add-hook 'org-babel-after-execute-hook (lambda () 
+                                            (when org-inline-image-overlays
+                                              (org-redisplay-inline-images)))))
 
 ;; Debugging
 (def-package! realgud
@@ -59,3 +47,4 @@
 
 ;; Loading
 (load! "+bindings")
+

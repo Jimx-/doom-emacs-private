@@ -5,6 +5,8 @@
 
 (package! nose)
 (package! pip-requirements)
+(package! py-isort)
+(package! yapfify :recipe (:fetcher github :repo "JorisE/yapfify"))
 
 ;; Environmet management
 (package! pipenv)

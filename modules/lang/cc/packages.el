@@ -8,7 +8,7 @@
 (package! glsl-mode)
 (package! modern-cpp-font-lock)
 (package! opencl-mode)
-
+(package! clang-format)
 
 (when (featurep! :feature syntax-checker)
   (package! flycheck-irony))
