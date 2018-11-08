@@ -14,7 +14,7 @@
        (company
         +auto)
        (ivy
-        +childframe
+        ;+childframe
         +fuzzy)
 
        :ui
@@ -72,7 +72,8 @@
         +ipython
         +present)
        (org-private
-        +capture)
+        +capture
+        +publish)
        (python
         +ipython)
        racket
@@ -99,7 +100,7 @@
  +default-repeat-forward-key ";"
  +default-repeat-backward-key "'"
  evil-want-C-u-scroll nil
- evil-want-integration nil
+ evil-want-integration t
  evil-shift-width 4
  evil-snipe-override-evil-repeat-keys nil
  evil-collection-company-use-tng nil

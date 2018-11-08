@@ -2,6 +2,7 @@
 
 ;; Sub-modules
 (if (featurep! +capture) (load! "+capture"))
+(if (featurep! +publish) (load! "+publish"))
 
 
 (add-hook 'org-load-hook #'+org-private|setup-ui t)

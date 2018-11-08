@@ -32,7 +32,7 @@
                   (cursor-type)
                   (no-special-glyphs . t)))
   :config
-  (setq lsp-ui-doc-enable t
+  (setq lsp-ui-doc-enable nil
         lsp-enable-completion-at-point t
         lsp-ui-doc-position 'top
         lsp-ui-doc-header nil
@@ -51,7 +51,9 @@
   (add-hook 'python-mode-hook #'lsp-python-enable)
   :config
   (setq
-   python-indent-guess-indent-offset-verbose nil)
+   python-indent-guess-indent-offset-verbose nil
+   lsp-message-project-root-warning t)
+
   (set-company-backend! 'python-mode '(company-lsp :with company-files company-yasnippet))
   (set-lookup-handlers! 'python-mode
     :definition #'lsp-ui-peek-find-definitions
@@ -65,20 +67,39 @@
   :config
   (set-company-backend! 'haskell-mode '(company-lsp company-files company-yasnippet)))
 
-(def-package! cquery
+;;  (def-package! cquery
+;;  :after cc-mode
+;;  :commands lsp-cquery-enable
+;;  :init
+;;  (add-hook 'c-mode-common-hook #'+cquery/enable)
+;;  (add-to-list 'projectile-globally-ignored-directories ".cquery_cached_index")
+;;  :config
+;;  (setq cquery-executable "/usr/bin/cquery")
+;;  (set-company-backend!
+;;      '(c-mode c++-mode objc-mode)
+;;      '(company-lsp))
+;;  (set-lookup-handlers! '(c-mode c++-mode objc-mode)
+;;      :definition #'lsp-ui-peek-find-definitions
+;;      :references #'lsp-ui-peek-find-references))
+
+(def-package! ccls
   :after cc-mode
-  :commands lsp-cquery-enable
+  :commands (lsp-ccls-enable)
   :init
-  (add-hook 'c-mode-common-hook #'+cquery/enable)
-  (add-to-list 'projectile-globally-ignored-directories ".cquery_cached_index")
+  (add-hook 'c-mode-common-hook #'+ccls//enable)
+  (add-to-list 'projectile-globally-ignored-directories ".ccls-cache")
   :config
-  (setq cquery-executable "/usr/bin/cquery")
-  (set-company-backend!
-    '(c-mode c++-mode objc-mode)
-    '(company-lsp))
-  (set-lookup-handlers! '(c-mode c++-mode objc-mode)
-    :definition #'lsp-ui-peek-find-definitions
-    :references #'lsp-ui-peek-find-references))
+  (setq ccls-executable "/usr/bin/ccls"
+        ;; ccls-cache-dir (concat doom-cache-dir ".ccls_cached_index")
+        ;; ccls-sem-highlight-method 'font-lock
+        )
+  ;; (ccls-use-default-rainbow-sem-highlight)
+  (setq ccls-extra-init-params
+        '(:completion (:detailedLabel t) :xref (:container t)
+                      :diagnostics (:frequencyMs 5000)))
+  ;; (evil-set-initial-state 'ccls-tree-mode 'emacs)
+  (set-company-backend! 'c-mode '(company-lsp))
+  (set-company-backend! 'c++-mode '(company-lsp)))
 
 (def-package! lsp-elixir
   :after elixir-mode

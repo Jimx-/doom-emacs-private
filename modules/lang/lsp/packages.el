@@ -7,3 +7,5 @@
 (package! lsp-python)
 (package! lsp-haskell)
 (package! cquery)
+;;(package! emacs-ccls :recipe (:fetcher github :repo "MaskRay/emacs-ccls" :files ("*")))
+(package! ccls)
